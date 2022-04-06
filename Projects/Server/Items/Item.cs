@@ -33,7 +33,7 @@ namespace Server
         /// <summary>
         ///     Resend the item's properties.
         /// </summary>
-        Properties = 0x00000004
+        Tooltip = 0x00000004
     }
 
     /// <summary>
@@ -1416,7 +1416,7 @@ namespace Server
                     state.SendEquipUpdate(this);
                     SendTooltipPacketTo(state);
                 }
-                else if (Tooltip.Enabled && (flags & ItemDelta.Properties) != 0)
+                else if (Tooltip.Enabled && (flags & ItemDelta.Tooltip) != 0)
                 {
                     SendTooltipPacketTo(state);
                 }
@@ -2439,7 +2439,7 @@ namespace Server
 
                 if (oldHash != newHash)
                 {
-                    Delta(ItemDelta.Properties);
+                    Delta(ItemDelta.Tooltip);
                 }
             }
             else
