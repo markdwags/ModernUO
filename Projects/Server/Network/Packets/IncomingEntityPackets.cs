@@ -116,12 +116,9 @@ public static class IncomingEntityPackets
                 {
                     m.OnAosSingleClick(from);
                 }
-                else
+                else if (from.Region.OnSingleClick(from, m))
                 {
-                    if (from.Region.OnSingleClick(from, m))
-                    {
-                        m.OnSingleClick(from);
-                    }
+                    m.OnSingleClick(from);
                 }
             }
         }
