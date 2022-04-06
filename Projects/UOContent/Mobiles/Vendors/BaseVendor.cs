@@ -877,7 +877,7 @@ namespace Server.Mobiles
             var list = new List<BuyItemState>(buyInfo.Length);
             var cont = BuyPack;
 
-            var opls = EnableVendorBuyTooltip ? new List<Tooltip>(buyInfo.Length) : null;
+            var tooltips = EnableVendorBuyTooltip ? new List<Tooltip>(buyInfo.Length) : null;
 
             for (var idx = 0; idx < buyInfo.Length; idx++)
             {
@@ -909,7 +909,7 @@ namespace Server.Mobiles
 
                 if (disp is ITooltipObject obj)
                 {
-                    opls?.Add(obj.Tooltip);
+                    tooltips?.Add(obj.Tooltip);
                 }
             }
 
@@ -950,7 +950,7 @@ namespace Server.Mobiles
                 if (name != null && list.Count < 250)
                 {
                     list.Add(new BuyItemState(name, cont.Serial, item.Serial, price, item.Amount, item.ItemID, item.Hue));
-                    opls?.Add(item.Tooltip);
+                    tooltips?.Add(item.Tooltip);
                 }
             }
 
@@ -979,11 +979,11 @@ namespace Server.Mobiles
             from.NetState.SendDisplayBuyList(Serial);
             from.NetState.SendMobileStatus(from); // make sure their gold amount is sent
 
-            if (opls != null)
+            if (tooltips != null)
             {
-                for (var i = 0; i < opls.Count; ++i)
+                for (var i = 0; i < tooltips.Count; ++i)
                 {
-                    from.NetState?.Send(opls[i].Buffer);
+                    from.NetState?.Send(tooltips[i].Buffer);
                 }
             }
 

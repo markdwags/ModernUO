@@ -321,7 +321,7 @@ namespace Server
         StatCap = 0x00002000,
         GhostUpdate = 0x00004000,
         Followers = 0x00008000,
-        Properties = 0x00010000,
+        Tooltip = 0x00010000,
         TithingPoints = 0x00020000,
         Resistances = 0x00040000,
         WeaponDamage = 0x00080000,
@@ -2852,7 +2852,7 @@ namespace Server
             bool sendUpdate = false, sendRemove = false;
             bool sendPublicStats = false, sendPrivateStats = false;
             bool sendMoving = false, sendNonlocalMoving = false;
-            var sendOPLUpdate = Tooltip.Enabled && (delta & MobileDelta.Properties) != 0;
+            var sendTooltip = Tooltip.Enabled && (delta & MobileDelta.Tooltip) != 0;
 
             bool sendHair = false, sendFacialHair = false, removeHair = false, removeFacialHair = false;
 
@@ -3083,9 +3083,9 @@ namespace Server
                     ourState.Send(facialHairPacket);
                 }
 
-                if (sendOPLUpdate)
+                if (sendTooltip)
                 {
-                    SendOPLPacketTo(ourState);
+                    SendTooltipPacketTo(ourState);
                 }
             }
 
@@ -3100,7 +3100,7 @@ namespace Server
             sendHits = sendHits || sendAll;
 
             if (!(sendRemove || sendIncoming || sendPublicStats || sendHits || sendMoving ||
-                  sendOPLUpdate || sendHair || sendFacialHair || sendHealthbarPoison ||
+                  sendTooltip || sendHair || sendFacialHair || sendHealthbarPoison ||
                   sendHealthbarYellow))
             {
                 return;
@@ -3222,7 +3222,7 @@ namespace Server
                     state.Send(facialHairPacket);
                 }
 
-                SendOPLPacketTo(state);
+                SendTooltipPacketTo(state);
             }
 
             eable.Free();
@@ -6889,19 +6889,19 @@ namespace Server
             eable.Free();
         }
 
-        public void SendOPLPacketTo(NetState state) => SendOPLPacketTo(state, Tooltip.Enabled);
+        public void SendTooltipPacketTo(NetState state) => SendTooltipPacketTo(state, Tooltip.Enabled);
 
-        protected virtual void SendOPLPacketTo(NetState ns, bool sendOplPacket)
+        protected virtual void SendTooltipPacketTo(NetState ns, bool sendTooltipPacket)
         {
-            if (sendOplPacket)
+            if (sendTooltipPacket)
             {
                 ns.SendTooltipInfo(this);
             }
         }
 
-        public virtual void SendOPLPacketTo(NetState ns, ReadOnlySpan<byte> opl)
+        public virtual void SendTooltipPacketTo(NetState ns, ReadOnlySpan<byte> tooltip)
         {
-            ns?.Send(opl);
+            ns?.Send(tooltip);
         }
 
         public virtual void OnAccessLevelChanged(AccessLevel oldLevel)
@@ -7054,7 +7054,7 @@ namespace Server
                             ns.SendBondedStatus(m.Serial, true);
                         }
 
-                        m.SendOPLPacketTo(ns);
+                        m.SendTooltipPacketTo(ns);
                     }
                 }
             }
@@ -7186,7 +7186,7 @@ namespace Server
                         state.SendBondedStatus(Serial, true);
                     }
 
-                    SendOPLPacketTo(state);
+                    SendTooltipPacketTo(state);
                 }
             }
 
@@ -7343,7 +7343,7 @@ namespace Server
 
                 if (oldHash != newHash)
                 {
-                    Delta(MobileDelta.Properties);
+                    Delta(MobileDelta.Tooltip);
                 }
             }
             else
@@ -7456,7 +7456,7 @@ namespace Server
                                     ns.SendBondedStatus(Serial, true);
                                 }
 
-                                SendOPLPacketTo(ns);
+                                SendTooltipPacketTo(ns);
                             }
 
                             if (inOldRange || !CanSee(m))
@@ -7477,7 +7477,7 @@ namespace Server
                                 ourState.SendBondedStatus(m.Serial, true);
                             }
 
-                            m.SendOPLPacketTo(ourState);
+                            m.SendTooltipPacketTo(ourState);
                         }
                     }
 
@@ -7507,7 +7507,7 @@ namespace Server
                                 ns.SendBondedStatus(Serial, true);
                             }
 
-                            SendOPLPacketTo(ns);
+                            SendTooltipPacketTo(ns);
                         }
                     }
 
@@ -7586,7 +7586,7 @@ namespace Server
                         state.SendBondedStatus(Serial, true);
                     }
 
-                    SendOPLPacketTo(state);
+                    SendTooltipPacketTo(state);
                 }
             }
 
