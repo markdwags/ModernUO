@@ -58,7 +58,7 @@ public partial class StrongBox : BaseContainer, IChoppable
         }
     }
 
-    public override void AddNameProperty(ObjectPropertyList list)
+    public override void AddNameProperty(Tooltip list)
     {
         if (_owner != null)
         {

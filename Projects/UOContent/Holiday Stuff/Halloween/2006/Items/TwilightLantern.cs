@@ -10,7 +10,7 @@
 
         public override bool AllowEquippedCast(Mobile from) => true;
 
-        public override void GetProperties(ObjectPropertyList list)
+        public override void GetProperties(Tooltip list)
         {
             base.GetProperties(list);
 

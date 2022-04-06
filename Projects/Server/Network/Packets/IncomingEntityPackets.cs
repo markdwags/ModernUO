@@ -151,7 +151,7 @@ public static class IncomingEntityPackets
 
     public static void BatchQueryProperties(NetState state, CircularBufferReader reader, int packetLength)
     {
-        if (!ObjectPropertyList.Enabled)
+        if (!Tooltip.Enabled)
         {
             return;
         }

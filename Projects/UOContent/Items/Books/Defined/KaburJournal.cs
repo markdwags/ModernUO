@@ -214,7 +214,7 @@ namespace Server.Items
 
         public override BookContent DefaultContent => Content;
 
-        public override void AddNameProperty(ObjectPropertyList list)
+        public override void AddNameProperty(Tooltip list)
         {
             list.Add("Khabur's Journal");
         }

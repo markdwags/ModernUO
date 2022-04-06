@@ -125,7 +125,7 @@ namespace Server.Commands
 
                                     foreach (var item in pm.Items)
                                     {
-                                        item.SendOPLPacketTo(ns);
+                                        item.SendTooltipPacketTo(ns);
                                     }
                                 }
                                 else

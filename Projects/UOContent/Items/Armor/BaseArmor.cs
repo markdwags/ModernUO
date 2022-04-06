@@ -1224,7 +1224,7 @@ namespace Server.Items
 
         private string GetNameString() => Name ?? $"#{LabelNumber}";
 
-        public override void AddNameProperty(ObjectPropertyList list)
+        public override void AddNameProperty(Tooltip list)
         {
             var oreType = _rawResource switch
             {
@@ -1288,7 +1288,7 @@ namespace Server.Items
 
         public virtual int GetLuckBonus() => CraftResources.GetInfo(_rawResource)?.AttributeInfo?.ArmorLuck ?? 0;
 
-        public override void GetProperties(ObjectPropertyList list)
+        public override void GetProperties(Tooltip list)
         {
             base.GetProperties(list);
 

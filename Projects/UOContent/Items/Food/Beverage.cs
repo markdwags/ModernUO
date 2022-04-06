@@ -700,7 +700,7 @@ namespace Server.Items
             return 1042972;     // It's full.
         }
 
-        public override void GetProperties(ObjectPropertyList list)
+        public override void GetProperties(Tooltip list)
         {
             base.GetProperties(list);
 

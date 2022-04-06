@@ -19,7 +19,7 @@ namespace Server.Items
 
         public override int LabelNumber => 1041424; // a fireworks wand
 
-        public override void AddNameProperties(ObjectPropertyList list)
+        public override void AddNameProperties(Tooltip list)
         {
             base.AddNameProperties(list);
 
