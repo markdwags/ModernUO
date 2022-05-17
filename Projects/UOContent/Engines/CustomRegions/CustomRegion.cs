@@ -1,4 +1,5 @@
 using System;
+using System;
 using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
@@ -103,7 +104,7 @@ public class CustomRegion : GuardedRegion
                     }
                 }
             }
-            else if (_controller.EmptyNPCCorpse)
+            else if (_controller.EmptyNpcCorpse)
             {
                 if (_mobile is { Corpse: { } })
                 {
@@ -138,7 +139,7 @@ public class CustomRegion : GuardedRegion
                     }
                 }
             }
-            else if (_controller.ResNPCOnDeath)
+            else if (_controller.ResNpcOnDeath)
             {
                 if (_mobile is { Corpse: { } })
                 {
@@ -164,7 +165,7 @@ public class CustomRegion : GuardedRegion
                     }
                 }
             }
-            else if (_controller.DeleteNPCCorpse)
+            else if (_controller.DeleteNpcCorpse)
             {
                 if (_mobile is { Corpse: { } })
                 {
@@ -184,7 +185,7 @@ public class CustomRegion : GuardedRegion
                     }
                 }
             }
-            else if (_controller.MoveNPCOnDeath)
+            else if (_controller.MoveNpcOnDeath)
             {
                 if (newNpc != null)
                 {

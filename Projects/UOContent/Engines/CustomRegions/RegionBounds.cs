@@ -14,8 +14,8 @@ public class RegionBounds
     private static void RegionBounds_OnCommand(CommandEventArgs e)
     {
         e.Mobile.Target = new RegionBoundTarget();
-        e.Mobile.SendMessage("Target a Mobile or RegionControl");
-        e.Mobile.SendMessage("Please note that Players will also be able to see the bounds of the Region.");
+        e.Mobile.SendMessage("Target a mobile or regionControl");
+        e.Mobile.SendMessage("Please note that players will also be able to see the bounds of the region.");
     }
 
     private class RegionBoundTarget : Target
@@ -32,11 +32,11 @@ public class RegionBounds
 
                 if (r == mobile.Map.DefaultRegion)
                 {
-                    from.SendMessage("The Region is the Default region for the entire map and as such, cannot have it's bounds displayed.");
+                    from.SendMessage("The region is the default region for the entire map and as such, cannot have it's bounds displayed.");
                     return;
                 }
 
-                from.SendMessage($"That Mobile's region is of type {r.GetType().FullName}, with a priority of {r.Priority.ToString()}.");
+                from.SendMessage($"That mobile's region is of type {r.GetType().FullName}, with a priority of {r.Priority.ToString()}.");
 
                 ShowRegionBounds(r, from, false, true);
             }
@@ -73,7 +73,7 @@ public class RegionBounds
             }
             else
             {
-                from.SendMessage("That is not a Mobile or a RegionControl");
+                from.SendMessage("That is not a mobile or a RegionControl");
             }
         }
     }

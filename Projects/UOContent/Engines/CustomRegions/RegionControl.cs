@@ -23,15 +23,15 @@ public enum RegionFlag : uint
     ShowEnterMessage = 0x00000200,
     ShowExitMessage = 0x00000400,
 
-    AllowBenefitNPC = 0x00000800,
-    AllowHarmNPC = 0x00001000,
+    AllowBenefitNpc = 0x00000800,
+    AllowHarmNpc = 0x00001000,
 
     CanMountEthereal = 0x000002000,
 
     CanEnter = 0x000004000,
 
     CanLootPlayerCorpse = 0x000008000,
-    CanLootNPCCorpse = 0x000010000,
+    CanLootNpcCorpse = 0x000010000,
 
     CanLootOwnCorpse = 0x000020000,
 
@@ -39,13 +39,13 @@ public enum RegionFlag : uint
 
     IsGuarded = 0x000080000,
 
-    EmptyNPCCorpse = 0x000400000,
+    EmptyNpcCorpse = 0x000400000,
     EmptyPlayerCorpse = 0x000800000,
-    DeleteNPCCorpse = 0x001000000,
+    DeleteNpcCorpse = 0x001000000,
     DeletePlayerCorpse = 0x002000000,
-    ResNPCOnDeath = 0x004000000,
+    ResNpcOnDeath = 0x004000000,
     ResPlayerOnDeath = 0x008000000,
-    MoveNPCOnDeath = 0x010000000,
+    MoveNpcOnDeath = 0x010000000,
     MovePlayerOnDeath = 0x020000000,
 
     NoPlayerItemDrop = 0x040000000,
@@ -154,15 +154,15 @@ public class RegionControl : Item
     [CommandProperty(AccessLevel.GameMaster)]
     public bool AllowBenefitNPC
     {
-        get => GetFlag(RegionFlag.AllowBenefitNPC);
-        set => SetFlag(RegionFlag.AllowBenefitNPC, value);
+        get => GetFlag(RegionFlag.AllowBenefitNpc);
+        set => SetFlag(RegionFlag.AllowBenefitNpc, value);
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
     public bool AllowHarmNPC
     {
-        get => GetFlag(RegionFlag.AllowHarmNPC);
-        set => SetFlag(RegionFlag.AllowHarmNPC, value);
+        get => GetFlag(RegionFlag.AllowHarmNpc);
+        set => SetFlag(RegionFlag.AllowHarmNpc, value);
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
@@ -189,8 +189,8 @@ public class RegionControl : Item
     [CommandProperty(AccessLevel.GameMaster)]
     public bool CanLootNPCCorpse
     {
-        get => GetFlag(RegionFlag.CanLootNPCCorpse);
-        set => SetFlag(RegionFlag.CanLootNPCCorpse, value);
+        get => GetFlag(RegionFlag.CanLootNpcCorpse);
+        set => SetFlag(RegionFlag.CanLootNpcCorpse, value);
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
@@ -224,10 +224,10 @@ public class RegionControl : Item
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
-    public bool EmptyNPCCorpse
+    public bool EmptyNpcCorpse
     {
-        get => GetFlag(RegionFlag.EmptyNPCCorpse);
-        set => SetFlag(RegionFlag.EmptyNPCCorpse, value);
+        get => GetFlag(RegionFlag.EmptyNpcCorpse);
+        set => SetFlag(RegionFlag.EmptyNpcCorpse, value);
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
@@ -238,10 +238,10 @@ public class RegionControl : Item
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
-    public bool DeleteNPCCorpse
+    public bool DeleteNpcCorpse
     {
-        get => GetFlag(RegionFlag.DeleteNPCCorpse);
-        set => SetFlag(RegionFlag.DeleteNPCCorpse, value);
+        get => GetFlag(RegionFlag.DeleteNpcCorpse);
+        set => SetFlag(RegionFlag.DeleteNpcCorpse, value);
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
@@ -252,10 +252,10 @@ public class RegionControl : Item
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
-    public bool ResNPCOnDeath
+    public bool ResNpcOnDeath
     {
-        get => GetFlag(RegionFlag.ResNPCOnDeath);
-        set => SetFlag(RegionFlag.ResNPCOnDeath, value);
+        get => GetFlag(RegionFlag.ResNpcOnDeath);
+        set => SetFlag(RegionFlag.ResNpcOnDeath, value);
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
@@ -266,18 +266,18 @@ public class RegionControl : Item
     }
 
     [CommandProperty(AccessLevel.GameMaster)]
-    public bool MoveNPCOnDeath
+    public bool MoveNpcOnDeath
     {
-        get => GetFlag(RegionFlag.MoveNPCOnDeath);
+        get => GetFlag(RegionFlag.MoveNpcOnDeath);
         set
         {
             if (MoveNpcToMap == null || MoveNpcToMap == Map.Internal || MoveNpcToLoc == Point3D.Zero)
             {
-                SetFlag(RegionFlag.MoveNPCOnDeath, false);
+                SetFlag(RegionFlag.MoveNpcOnDeath, false);
             }
             else
             {
-                SetFlag(RegionFlag.MoveNPCOnDeath, value);
+                SetFlag(RegionFlag.MoveNpcOnDeath, value);
             }
         }
     }
@@ -375,7 +375,7 @@ public class RegionControl : Item
     private TimeSpan _playerLogoutDelay;
     private int _lightLevel;
 
-    private Map _moveNPCToMap;
+    private Map _moveNpcToMap;
     private Point3D _moveNpcToLoc;
     private Map _movePlayerToMap;
     private Point3D _movePlayerToLoc;
@@ -450,16 +450,16 @@ public class RegionControl : Item
     [CommandProperty(AccessLevel.GameMaster)]
     public Map MoveNpcToMap
     {
-        get => _moveNPCToMap;
+        get => _moveNpcToMap;
         set
         {
             if (value != Map.Internal)
             {
-                _moveNPCToMap = value;
+                _moveNpcToMap = value;
             }
             else
             {
-                SetFlag(RegionFlag.MoveNPCOnDeath, false);
+                SetFlag(RegionFlag.MoveNpcOnDeath, false);
             }
         }
     }
@@ -476,7 +476,7 @@ public class RegionControl : Item
             }
             else
             {
-                SetFlag(RegionFlag.MoveNPCOnDeath, false);
+                SetFlag(RegionFlag.MoveNpcOnDeath, false);
             }
         }
     }
@@ -983,7 +983,7 @@ public class RegionControl : Item
         writer.Write((TimeSpan)_playerLogoutDelay);
         writer.Write((int)_lightLevel);
 
-        writer.Write((Map)_moveNPCToMap);
+        writer.Write((Map)_moveNpcToMap);
         writer.Write((Point3D)_moveNpcToLoc);
         writer.Write((Map)_movePlayerToMap);
         writer.Write((Point3D)_movePlayerToLoc);
@@ -1010,7 +1010,7 @@ public class RegionControl : Item
         _playerLogoutDelay = reader.ReadTimeSpan();
         _lightLevel = reader.ReadInt();
 
-        _moveNPCToMap = reader.ReadMap();
+        _moveNpcToMap = reader.ReadMap();
         _moveNpcToLoc = reader.ReadPoint3D();
         _movePlayerToMap = reader.ReadMap();
         _movePlayerToLoc = reader.ReadPoint3D();
