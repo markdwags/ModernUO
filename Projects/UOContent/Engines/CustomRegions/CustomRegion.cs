@@ -12,6 +12,29 @@ public class CustomRegion : GuardedRegion
     private readonly RegionControl _controller;
     private Timer _movePlayerTimer;
 
+    public static void Initialize()
+    {
+        EventSink.Login += OnLogin;
+    }
+
+    public static void OnLogin(Mobile m)
+    {
+        if (m is PlayerMobile playerMobile)
+        {
+            Region region = Find(playerMobile.Location, playerMobile.Map);
+
+            if (region is CustomRegion customRegion)
+            {
+                if (customRegion._controller.LoginRelocation)
+                {
+                    playerMobile.MoveToWorld(customRegion._controller.LoginRelocationLoc, customRegion._controller.LoginRelocationMap);
+
+                    playerMobile.SendMessage("You've been relocated.");
+                }
+            }
+        }
+    }
+
     public CustomRegion(RegionControl control) : base(control.RegionName, control.Map, control.RegionPriority, control.RegionArea)
     {
         Disabled = !control.IsGuarded;

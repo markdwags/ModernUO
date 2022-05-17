@@ -314,6 +314,57 @@ public class RegionControl : Item
         set => SetFlag(RegionFlag.NoNPCItemDrop, value);
     }
 
+    [CommandProperty(AccessLevel.GameMaster)]
+    public bool LoginRelocation
+    {
+        get => _loginRelocation;
+        set
+        {
+            if (LoginRelocationMap == null || LoginRelocationMap == Map.Internal || LoginRelocationLoc == Point3D.Zero)
+            {
+                _loginRelocation = false;
+            }
+            else
+            {
+                _loginRelocation = value;
+            }
+        }
+    }
+
+    [CommandProperty(AccessLevel.GameMaster)]
+    public Point3D LoginRelocationLoc
+    {
+        get => _loginRelocationLoc;
+        set
+        {
+            if (value != Point3D.Zero)
+            {
+                _loginRelocationLoc = value;
+            }
+            else
+            {
+                _loginRelocation = false;
+            }
+        }
+    }
+
+    [CommandProperty(AccessLevel.GameMaster)]
+    public Map LoginRelocationMap
+    {
+        get => _loginRelocationMap;
+        set
+        {
+            if (value != Map.Internal)
+            {
+                _loginRelocationMap = value;
+            }
+            else
+            {
+                _loginRelocation = false;
+            }
+        }
+    }
+
     # endregion
 
 
@@ -379,6 +430,10 @@ public class RegionControl : Item
     private Point3D _moveNpcToLoc;
     private Map _movePlayerToMap;
     private Point3D _movePlayerToLoc;
+
+    private bool _loginRelocation;
+    private Point3D _loginRelocationLoc;
+    private Map _loginRelocationMap;
 
     [CommandProperty(AccessLevel.GameMaster)]
     public string RegionName
@@ -670,7 +725,7 @@ public class RegionControl : Item
 
         if (Map != null && Active)
         {
-            if (RegionArea != null && RegionArea.Length > 0)
+            if (RegionArea is { Length: > 0 })
             {
                 _region = new CustomRegion(this);
                 _region.Register();
@@ -987,6 +1042,10 @@ public class RegionControl : Item
         writer.Write((Point3D)_moveNpcToLoc);
         writer.Write((Map)_movePlayerToMap);
         writer.Write((Point3D)_movePlayerToLoc);
+
+        writer.Write((bool)_loginRelocation);
+        writer.Write((Point3D)_loginRelocationLoc);
+        writer.Write((Map)_loginRelocationMap);
     }
 
     public override void Deserialize(IGenericReader reader)
@@ -1014,6 +1073,10 @@ public class RegionControl : Item
         _moveNpcToLoc = reader.ReadPoint3D();
         _movePlayerToMap = reader.ReadMap();
         _movePlayerToLoc = reader.ReadPoint3D();
+
+        _loginRelocation = reader.ReadBool();
+        _loginRelocationLoc = reader.ReadPoint3D();
+        _loginRelocationMap = reader.ReadMap();
 
         AllControls.Add(this);
 
