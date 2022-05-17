@@ -20,7 +20,7 @@ public class RegionControlGump : Gump
         AddBackground(23, 32, 412, 186, 9270);
         AddAlphaRegion(19, 29, 418, 193);
 
-        AddLabel(55, 60, 1152, "Custom Region");
+        AddLabel(55, 60, 1152, _controller.RegionName);
 
         AddLabel(75, 90, 1152, "Add Region Area");
         AddButton(55, 92, 0x845, 0x846, 3, GumpButtonType.Reply, 0);
