@@ -1,11 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using ModernUO.Serialization;
+using Server.Collections;
 using Server.Spells;
 
 namespace Server.Engines.CustomRegions;
 
-[Flags]
+/*[Flags]
 public enum RegionFlag : uint
 {
     None = 0x00000000,
@@ -50,270 +51,191 @@ public enum RegionFlag : uint
 
     NoPlayerItemDrop = 0x040000000,
     NoNPCItemDrop = 0x080000000
-}
+}*/
 
-public class RegionControl : Item
+[SerializationGenerator(0, false)]
+public partial class RegionControl : Item
 {
     public static List<RegionControl> AllControls { get; private set; } = new();
 
-    #region Region Flags
+    #region Region Toggles
 
-    public RegionFlag Flags { get; set; }
+    [SerializableField(0)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _allowBenefitPlayer;
 
-    public bool GetFlag(RegionFlag flag) => (Flags & flag) != 0;
+    [SerializableField(1)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _allowHarmPlayer;
 
-    public void SetFlag(RegionFlag flag, bool value)
-    {
-        if (value)
-        {
-            Flags |= flag;
-        }
-        else
-        {
-            Flags &= ~flag;
-        }
-    }
+    [SerializableField(2)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _allowHousing;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool AllowBenefitPlayer
-    {
-        get => GetFlag(RegionFlag.AllowBenefitPlayer);
-        set => SetFlag(RegionFlag.AllowBenefitPlayer, value);
-    }
+    [SerializableField(3)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _allowSpawn;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool AllowHarmPlayer
-    {
-        get => GetFlag(RegionFlag.AllowHarmPlayer);
-        set => SetFlag(RegionFlag.AllowHarmPlayer, value);
-    }
+    [SerializableField(4)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canBeDamaged;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool AllowHousing
-    {
-        get => GetFlag(RegionFlag.AllowHousing);
-        set => SetFlag(RegionFlag.AllowHousing, value);
-    }
+    [SerializableField(5)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canMountEthereal;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool AllowSpawn
-    {
-        get => GetFlag(RegionFlag.AllowSpawn);
-        set => SetFlag(RegionFlag.AllowSpawn, value);
-    }
+    [SerializableField(6)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canEnter;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanBeDamaged
-    {
-        get => GetFlag(RegionFlag.CanBeDamaged);
-        set => SetFlag(RegionFlag.CanBeDamaged, value);
-    }
+    [SerializableField(7)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canHeal;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanMountEthereal
-    {
-        get => GetFlag(RegionFlag.CanMountEthereal);
-        set => SetFlag(RegionFlag.CanMountEthereal, value);
-    }
+    [SerializableField(8)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canResurrect;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanEnter
-    {
-        get => GetFlag(RegionFlag.CanEnter);
-        set => SetFlag(RegionFlag.CanEnter, value);
-    }
+    [SerializableField(9)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canUseStuckMenu;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanHeal
-    {
-        get => GetFlag(RegionFlag.CanHeal);
-        set => SetFlag(RegionFlag.CanHeal, value);
-    }
+    [SerializableField(10)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _itemDecay;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanResurrect
-    {
-        get => GetFlag(RegionFlag.CanResurrect);
-        set => SetFlag(RegionFlag.CanResurrect, value);
-    }
+    [SerializableField(11)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _allowBenefitNPC;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanUseStuckMenu
-    {
-        get => GetFlag(RegionFlag.CanUseStuckMenu);
-        set => SetFlag(RegionFlag.CanUseStuckMenu, value);
-    }
+    [SerializableField(12)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _allowHarmNPC;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool ItemDecay
-    {
-        get => GetFlag(RegionFlag.ItemDecay);
-        set => SetFlag(RegionFlag.ItemDecay, value);
-    }
+    [SerializableField(13)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _showEnterMessage;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool AllowBenefitNPC
-    {
-        get => GetFlag(RegionFlag.AllowBenefitNpc);
-        set => SetFlag(RegionFlag.AllowBenefitNpc, value);
-    }
+    [SerializableField(14)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _showExitMessage;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool AllowHarmNPC
-    {
-        get => GetFlag(RegionFlag.AllowHarmNpc);
-        set => SetFlag(RegionFlag.AllowHarmNpc, value);
-    }
+    [SerializableField(15)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canLootPlayerCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool ShowEnterMessage
-    {
-        get => GetFlag(RegionFlag.ShowEnterMessage);
-        set => SetFlag(RegionFlag.ShowEnterMessage, value);
-    }
+    [SerializableField(16)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canLootNPCCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool ShowExitMessage
-    {
-        get => GetFlag(RegionFlag.ShowExitMessage);
-        set => SetFlag(RegionFlag.ShowExitMessage, value);
-    }
+    [SerializableField(17)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canLootOwnCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanLootPlayerCorpse
-    {
-        get => GetFlag(RegionFlag.CanLootPlayerCorpse);
-        set => SetFlag(RegionFlag.CanLootPlayerCorpse, value);
-    }
+    [SerializableField(18)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _canUsePotions;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanLootNPCCorpse
-    {
-        get => GetFlag(RegionFlag.CanLootNpcCorpse);
-        set => SetFlag(RegionFlag.CanLootNpcCorpse, value);
-    }
+    private bool _isGuarded;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanLootOwnCorpse
-    {
-        get => GetFlag(RegionFlag.CanLootOwnCorpse);
-        set => SetFlag(RegionFlag.CanLootOwnCorpse, value);
-    }
-
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool CanUsePotions
-    {
-        get => GetFlag(RegionFlag.CanUsePotions);
-        set => SetFlag(RegionFlag.CanUsePotions, value);
-    }
-
+    [SerializableField(19)]
     [CommandProperty(AccessLevel.GameMaster)]
     public bool IsGuarded
     {
-        get => GetFlag(RegionFlag.IsGuarded);
+        get => _isGuarded;
         set
         {
-            SetFlag(RegionFlag.IsGuarded, value);
+            _isGuarded = value;
+
             if (_region != null)
             {
                 _region.Disabled = !value;
             }
 
             Timer.DelayCall(TimeSpan.FromSeconds(2.0), UpdateRegion);
+
+            this.MarkDirty();
         }
     }
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool EmptyNpcCorpse
-    {
-        get => GetFlag(RegionFlag.EmptyNpcCorpse);
-        set => SetFlag(RegionFlag.EmptyNpcCorpse, value);
-    }
+    [SerializableField(20)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _emptyNpcCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool EmptyPlayerCorpse
-    {
-        get => GetFlag(RegionFlag.EmptyPlayerCorpse);
-        set => SetFlag(RegionFlag.EmptyPlayerCorpse, value);
-    }
+    [SerializableField(21)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _emptyPlayerCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool DeleteNpcCorpse
-    {
-        get => GetFlag(RegionFlag.DeleteNpcCorpse);
-        set => SetFlag(RegionFlag.DeleteNpcCorpse, value);
-    }
+    [SerializableField(22)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _deleteNpcCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool DeletePlayerCorpse
-    {
-        get => GetFlag(RegionFlag.DeletePlayerCorpse);
-        set => SetFlag(RegionFlag.DeletePlayerCorpse, value);
-    }
+    [SerializableField(23)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _deletePlayerCorpse;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool ResNpcOnDeath
-    {
-        get => GetFlag(RegionFlag.ResNpcOnDeath);
-        set => SetFlag(RegionFlag.ResNpcOnDeath, value);
-    }
+    [SerializableField(24)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _resNpcOnDeath;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool ResPlayerOnDeath
-    {
-        get => GetFlag(RegionFlag.ResPlayerOnDeath);
-        set => SetFlag(RegionFlag.ResPlayerOnDeath, value);
-    }
+    [SerializableField(25)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _resPlayerOnDeath;
 
+    public bool _moveNpcOnDeath;
+
+    [SerializableField(26)]
     [CommandProperty(AccessLevel.GameMaster)]
     public bool MoveNpcOnDeath
     {
-        get => GetFlag(RegionFlag.MoveNpcOnDeath);
+        get => _moveNpcOnDeath;
         set
         {
             if (MoveNpcToMap == null || MoveNpcToMap == Map.Internal || MoveNpcToLoc == Point3D.Zero)
             {
-                SetFlag(RegionFlag.MoveNpcOnDeath, false);
+                _moveNpcOnDeath = false;
             }
             else
             {
-                SetFlag(RegionFlag.MoveNpcOnDeath, value);
+                _moveNpcOnDeath = value;
             }
+
+            this.MarkDirty();
         }
     }
 
+    private bool _movePlayerOnDeath;
+
+    [SerializableField(27)]
     [CommandProperty(AccessLevel.GameMaster)]
     public bool MovePlayerOnDeath
     {
-        get => GetFlag(RegionFlag.MovePlayerOnDeath);
+        get => _movePlayerOnDeath;
         set
         {
             if (MovePlayerToMap == null || MovePlayerToMap == Map.Internal || MovePlayerToLoc == Point3D.Zero)
             {
-                SetFlag(RegionFlag.MovePlayerOnDeath, false);
+                _movePlayerOnDeath = false;
             }
             else
             {
-                SetFlag(RegionFlag.MovePlayerOnDeath, value);
+                _movePlayerOnDeath = value;
             }
+
+            this.MarkDirty();
         }
     }
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool NoPlayerItemDrop
-    {
-        get => GetFlag(RegionFlag.NoPlayerItemDrop);
-        set => SetFlag(RegionFlag.NoPlayerItemDrop, value);
-    }
+    [SerializableField(28)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _noPlayerItemDrop;
 
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public bool NoNPCItemDrop
-    {
-        get => GetFlag(RegionFlag.NoNPCItemDrop);
-        set => SetFlag(RegionFlag.NoNPCItemDrop, value);
-    }
+    [SerializableField(29)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private bool _noNpcItemDrop;
 
+    [SerializableField(30)]
     [CommandProperty(AccessLevel.GameMaster)]
     public bool LoginRelocation
     {
@@ -328,9 +250,12 @@ public class RegionControl : Item
             {
                 _loginRelocation = value;
             }
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(31)]
     [CommandProperty(AccessLevel.GameMaster)]
     public Point3D LoginRelocationLoc
     {
@@ -345,9 +270,12 @@ public class RegionControl : Item
             {
                 _loginRelocation = false;
             }
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(32)]
     [CommandProperty(AccessLevel.GameMaster)]
     public Map LoginRelocationMap
     {
@@ -362,6 +290,8 @@ public class RegionControl : Item
             {
                 _loginRelocation = false;
             }
+
+            this.MarkDirty();
         }
     }
 
@@ -370,12 +300,11 @@ public class RegionControl : Item
 
     #region Region Restrictions
 
+    [SerializableField(33)]
     private BitArray _restrictedSpells;
+
+    [SerializableField(34)]
     private BitArray _restrictedSkills;
-
-    public BitArray RestrictedSpells => _restrictedSpells;
-
-    public BitArray RestrictedSkills => _restrictedSkills;
 
     # endregion
 
@@ -383,16 +312,12 @@ public class RegionControl : Item
     # region Region Related Objects
 
     private CustomRegion _region;
-    private Rectangle3D[] _regionArea;
 
     public CustomRegion Region => _region;
 
-    [CommandProperty(AccessLevel.GameMaster)]
-    public Rectangle3D[] RegionArea
-    {
-        get => _regionArea;
-        set => _regionArea = value;
-    }
+    [SerializableField(35)]
+    [SerializableFieldAttr("[CommandProperty(AccessLevel.GameMaster)]")]
+    private Rectangle3D[] _regionArea;
 
     # endregion
 
@@ -401,6 +326,7 @@ public class RegionControl : Item
 
     private bool _active = true;
 
+    [SerializableField(36)]
     [CommandProperty(AccessLevel.GameMaster)]
     public bool Active
     {
@@ -412,6 +338,8 @@ public class RegionControl : Item
                 _active = value;
                 UpdateRegion();
             }
+
+            this.MarkDirty();
         }
     }
 
@@ -435,6 +363,7 @@ public class RegionControl : Item
     private Point3D _loginRelocationLoc;
     private Map _loginRelocationMap;
 
+    [SerializableField(37)]
     [CommandProperty(AccessLevel.GameMaster)]
     public string RegionName
     {
@@ -455,9 +384,12 @@ public class RegionControl : Item
             }
 
             UpdateRegion();
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(38)]
     [CommandProperty(AccessLevel.GameMaster)]
     public int RegionPriority
     {
@@ -466,9 +398,12 @@ public class RegionControl : Item
         {
             _regionPriority = value;
             UpdateRegion();
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(39)]
     [CommandProperty(AccessLevel.GameMaster)]
     public MusicName Music
     {
@@ -477,9 +412,12 @@ public class RegionControl : Item
         {
             _music = value;
             UpdateRegion();
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(40)]
     [CommandProperty(AccessLevel.GameMaster)]
     public TimeSpan PlayerLogoutDelay
     {
@@ -488,9 +426,12 @@ public class RegionControl : Item
         {
             _playerLogoutDelay = value;
             UpdateRegion();
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(41)]
     [CommandProperty(AccessLevel.GameMaster)]
     public int LightLevel
     {
@@ -499,74 +440,60 @@ public class RegionControl : Item
         {
             _lightLevel = value;
             UpdateRegion();
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(42)]
     [CommandProperty(AccessLevel.GameMaster)]
     public Map MoveNpcToMap
     {
         get => _moveNpcToMap;
         set
         {
-            if (value != Map.Internal)
-            {
-                _moveNpcToMap = value;
-            }
-            else
-            {
-                SetFlag(RegionFlag.MoveNpcOnDeath, false);
-            }
+            _moveNpcToMap = value != Map.Internal ? value : null;
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(43)]
     [CommandProperty(AccessLevel.GameMaster)]
     public Point3D MoveNpcToLoc
     {
         get => _moveNpcToLoc;
         set
         {
-            if (value != Point3D.Zero)
-            {
-                _moveNpcToLoc = value;
-            }
-            else
-            {
-                SetFlag(RegionFlag.MoveNpcOnDeath, false);
-            }
+            _moveNpcToLoc = value != Point3D.Zero ? value : Point3D.Zero;
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(44)]
     [CommandProperty(AccessLevel.GameMaster)]
     public Map MovePlayerToMap
     {
         get => _movePlayerToMap;
         set
         {
-            if (value != Map.Internal)
-            {
-                _movePlayerToMap = value;
-            }
-            else
-            {
-                SetFlag(RegionFlag.MovePlayerOnDeath, false);
-            }
+            _movePlayerToMap = value != Map.Internal ? value : null;
+
+            this.MarkDirty();
         }
     }
 
+    [SerializableField(45)]
     [CommandProperty(AccessLevel.GameMaster)]
     public Point3D MovePlayerToLoc
     {
         get => _movePlayerToLoc;
         set
         {
-            if (value != Point3D.Zero)
-            {
-                _movePlayerToLoc = value;
-            }
-            else
-            {
-                SetFlag(RegionFlag.MovePlayerOnDeath, false);
-            }
+            _movePlayerToLoc = value != Point3D.Zero ? value : Point3D.Zero;
+
+            this.MarkDirty();
         }
     }
 
@@ -681,11 +608,6 @@ public class RegionControl : Item
         UpdateRegion();
     }
 
-    public RegionControl(Serial serial) : base(serial)
-    {
-    }
-
-
     #region Control Special Voids
 
     public bool RegionNameTaken(string testName)
@@ -725,7 +647,7 @@ public class RegionControl : Item
 
         if (Map != null && Active)
         {
-            if (RegionArea is { Length: > 0 })
+            if (_regionArea is { Length: > 0 })
             {
                 _region = new CustomRegion(this);
                 _region.Register();
@@ -943,7 +865,7 @@ public class RegionControl : Item
 
     #region Ser/Deser Helpers
 
-    public static void WriteBitArray(IGenericWriter writer, BitArray ba)
+    /*public static void WriteBitArray(IGenericWriter writer, BitArray ba)
     {
         writer.Write(ba.Length);
 
@@ -951,9 +873,9 @@ public class RegionControl : Item
         {
             writer.Write(ba[i]);
         }
-    }
+    }*/
 
-    public static BitArray ReadBitArray(IGenericReader reader)
+    /*public static BitArray ReadBitArray(IGenericReader reader)
     {
         int size = reader.ReadInt();
 
@@ -965,10 +887,10 @@ public class RegionControl : Item
         }
 
         return newBA;
-    }
+    }*/
 
 
-    public static void WriteRect3DArray(IGenericWriter writer, Rectangle3D[] ary)
+    /*public static void WriteRect3DArray(IGenericWriter writer, Rectangle3D[] ary)
     {
         if (ary == null)
         {
@@ -1012,72 +934,13 @@ public class RegionControl : Item
         }
 
         return newAry.ToArray();
-    }
+    }*/
 
     # endregion
 
-
-    public override void Serialize(IGenericWriter writer)
+    [AfterDeserialization]
+    private void AfterDeserialization()
     {
-        base.Serialize(writer);
-
-        writer.Write((int)0); // version
-
-        WriteRect3DArray(writer, _regionArea);
-
-        writer.Write((int)Flags);
-
-        WriteBitArray(writer, _restrictedSpells);
-        WriteBitArray(writer, _restrictedSkills);
-
-        writer.Write((bool)_active);
-
-        writer.Write((string)_regionName);
-        writer.Write((int)_regionPriority);
-        writer.Write((int)_music);
-        writer.Write((TimeSpan)_playerLogoutDelay);
-        writer.Write((int)_lightLevel);
-
-        writer.Write((Map)_moveNpcToMap);
-        writer.Write((Point3D)_moveNpcToLoc);
-        writer.Write((Map)_movePlayerToMap);
-        writer.Write((Point3D)_movePlayerToLoc);
-
-        writer.Write((bool)_loginRelocation);
-        writer.Write((Point3D)_loginRelocationLoc);
-        writer.Write((Map)_loginRelocationMap);
-    }
-
-    public override void Deserialize(IGenericReader reader)
-    {
-        base.Deserialize(reader);
-
-        int version = reader.ReadInt();
-
-        _regionArea = ReadRect3DArray(reader);
-
-        Flags = (RegionFlag)reader.ReadInt();
-
-        _restrictedSpells = ReadBitArray(reader);
-        _restrictedSkills = ReadBitArray(reader);
-
-        _active = reader.ReadBool();
-
-        _regionName = reader.ReadString();
-        _regionPriority = reader.ReadInt();
-        _music = (MusicName)reader.ReadInt();
-        _playerLogoutDelay = reader.ReadTimeSpan();
-        _lightLevel = reader.ReadInt();
-
-        _moveNpcToMap = reader.ReadMap();
-        _moveNpcToLoc = reader.ReadPoint3D();
-        _movePlayerToMap = reader.ReadMap();
-        _movePlayerToLoc = reader.ReadPoint3D();
-
-        _loginRelocation = reader.ReadBool();
-        _loginRelocationLoc = reader.ReadPoint3D();
-        _loginRelocationMap = reader.ReadMap();
-
         AllControls.Add(this);
 
         if (RegionNameTaken(_regionName))

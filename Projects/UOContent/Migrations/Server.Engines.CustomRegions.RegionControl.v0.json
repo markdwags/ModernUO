@@ -1,0 +1,370 @@
+{
+  "version": 0,
+  "type": "Server.Engines.CustomRegions.RegionControl",
+  "properties": [
+    {
+      "name": "AllowBenefitPlayer",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "AllowHarmPlayer",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "AllowHousing",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "AllowSpawn",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanBeDamaged",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanMountEthereal",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanEnter",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanHeal",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanResurrect",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanUseStuckMenu",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "ItemDecay",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "AllowBenefitNPC",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "AllowHarmNPC",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "ShowEnterMessage",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "ShowExitMessage",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanLootPlayerCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanLootNPCCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanLootOwnCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "CanUsePotions",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "IsGuarded",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "EmptyNpcCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "EmptyPlayerCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "DeleteNpcCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "DeletePlayerCorpse",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "ResNpcOnDeath",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "ResPlayerOnDeath",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "MoveNpcOnDeath",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "MovePlayerOnDeath",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "NoPlayerItemDrop",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "NoNpcItemDrop",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "LoginRelocation",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "LoginRelocationLoc",
+      "type": "Server.Point3D",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "Point3D"
+      ]
+    },
+    {
+      "name": "LoginRelocationMap",
+      "type": "Server.Map",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "Map"
+      ]
+    },
+    {
+      "name": "RestrictedSpells",
+      "type": "Server.Collections.BitArray",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "BitArray"
+      ]
+    },
+    {
+      "name": "RestrictedSkills",
+      "type": "Server.Collections.BitArray",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "BitArray"
+      ]
+    },
+    {
+      "name": "RegionArea",
+      "type": "Server.Rectangle3D[]",
+      "rule": "ArrayMigrationRule",
+      "ruleArguments": [
+        "Server.Rectangle3D",
+        "PrimitiveUOTypeMigrationRule",
+        "Rect3D"
+      ]
+    },
+    {
+      "name": "Active",
+      "type": "bool",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "RegionName",
+      "type": "string",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "RegionPriority",
+      "type": "int",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "Music",
+      "type": "Server.MusicName",
+      "rule": "EnumMigrationRule"
+    },
+    {
+      "name": "PlayerLogoutDelay",
+      "type": "System.TimeSpan",
+      "rule": "PrimitiveTypeMigrationRule"
+    },
+    {
+      "name": "LightLevel",
+      "type": "int",
+      "rule": "PrimitiveTypeMigrationRule",
+      "ruleArguments": [
+        ""
+      ]
+    },
+    {
+      "name": "MoveNpcToMap",
+      "type": "Server.Map",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "Map"
+      ]
+    },
+    {
+      "name": "MoveNpcToLoc",
+      "type": "Server.Point3D",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "Point3D"
+      ]
+    },
+    {
+      "name": "MovePlayerToMap",
+      "type": "Server.Map",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "Map"
+      ]
+    },
+    {
+      "name": "MovePlayerToLoc",
+      "type": "Server.Point3D",
+      "rule": "PrimitiveUOTypeMigrationRule",
+      "ruleArguments": [
+        "Point3D"
+      ]
+    }
+  ]
+}

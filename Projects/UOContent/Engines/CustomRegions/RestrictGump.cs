@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using Server.Collections;
 using Server.Gumps;
 using Server.Network;
 using Server.Spells;

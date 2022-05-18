@@ -64,7 +64,7 @@ public class CustomRegion : GuardedRegion
 
                 m.Hidden = false;
             }
-            else if (!(m is PlayerMobile) && _controller.NoNPCItemDrop)
+            else if (!(m is PlayerMobile) && _controller.NoNpcItemDrop)
             {
                 if (m.Female)
                 {
