@@ -72,6 +72,19 @@ namespace Server.Tests.Network
         }
 
         [Fact]
+        public void TestAssistantVersionReq()
+        {
+            var expected = new AssistantVersionReq().Compile();
+
+            var ns = PacketTestUtilities.CreateTestNetState();
+
+            ns.SendAssistantVersionRequest();
+
+            var result = ns.SendPipe.Reader.TryRead();
+            AssertThat.Equal(result.Buffer[0].AsSpan(0), expected);
+        }
+
+        [Fact]
         public void TestDeleteResult()
         {
             var expected = new DeleteResult(DeleteResultType.BadRequest).Compile();

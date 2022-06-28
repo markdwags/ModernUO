@@ -165,6 +165,7 @@ public static class IncomingAccountPackets
         );
 
         state.SendClientVersionRequest();
+        state.SendAssistantVersionRequest();
 
         state.BlockAllPackets = true;
 
@@ -199,8 +200,9 @@ public static class IncomingAccountPackets
 
     public static void AssistVersion(NetState state, CircularBufferReader reader, int packetLength)
     {
-        var unk = reader.ReadInt32();
-        var av = reader.ReadAscii();
+        var assistantVersion = state.AssistantVersion = reader.ReadAscii();
+
+        EventSink.InvokeAssistantVersionReceived(state, assistantVersion);
     }
 
     public static void ClientVersion(NetState state, CircularBufferReader reader, int packetLength)
@@ -260,6 +262,7 @@ public static class IncomingAccountPackets
         m.NetState?.Disconnect("Character selected for a player already logged in.");
 
         state.SendClientVersionRequest();
+        state.SendAssistantVersionRequest();
 
         state.BlockAllPackets = true;
 

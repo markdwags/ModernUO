@@ -54,6 +54,9 @@ namespace Server.Gumps
 
             AddHtml(70, 36 + line++ * 20, 200, 20, Color(expansionName, LabelColor32));
 
+            AddHtml(14, 36 + line * 20, 200, 20, Color("Assistant:", LabelColor32));
+            AddHtml(70, 36 + line++ * 20, 200, 20, Color(string.IsNullOrEmpty(state.AssistantVersion) ? "N/A" : state.AssistantVersion, LabelColor32));
+
             var a = state.Account as Account;
             var m = state.Mobile;
 

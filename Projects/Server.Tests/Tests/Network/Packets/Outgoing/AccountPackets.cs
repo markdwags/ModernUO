@@ -49,6 +49,14 @@ namespace Server.Tests.Network
         }
     }
 
+    public sealed class AssistantVersionReq : Packet
+    {
+        public AssistantVersionReq() : base(0xBE)
+        {
+            EnsureCapacity(3);
+        }
+    }
+
     public sealed class DeleteResult : Packet
     {
         public DeleteResult(DeleteResultType res) : base(0x85, 2)

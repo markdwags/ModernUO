@@ -112,6 +112,15 @@ public static class OutgoingAccountPackets
     public static void SendClientVersionRequest(this NetState ns) => ns?.Send(stackalloc byte[] { 0xBD, 0x00, 0x03 });
 
     /**
+     * Packet: 0xBE
+     * Length: 3 bytes
+     *
+     * Sends a requests for the assistant version
+     */
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void SendAssistantVersionRequest(this NetState ns) => ns?.Send(stackalloc byte[] { 0xBE, 0x00, 0x03 });
+
+    /**
      * Packet: 0x85
      * Length: 2 bytes
      *

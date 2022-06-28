@@ -118,6 +118,11 @@ namespace Server
         public static event Action<Mobile> QuestGumpRequest;
         public static void InvokeQuestGumpRequest(Mobile m) => QuestGumpRequest?.Invoke(m);
 
+        public static event Action<NetState, string> AssistantVersionReceived;
+
+        public static void InvokeAssistantVersionReceived(NetState state, string av) =>
+            AssistantVersionReceived?.Invoke(state, av);
+
         public static event Action<NetState, ClientVersion> ClientVersionReceived;
 
         public static void InvokeClientVersionReceived(NetState state, ClientVersion cv) =>

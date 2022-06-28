@@ -25,6 +25,8 @@ namespace Server.Network
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasFlag(ClientFlags flag) => (Flags & flag) != 0;
 
+        public string AssistantVersion { get; set; }
+
         public ClientVersion Version
         {
             get => _version;

@@ -56,6 +56,8 @@ namespace Server.Misc
                     $"Restricting client version to {GetVersionExpression()}. Action to be taken: {_invalidClientResponse}"
                 );
             }
+
+            EventSink.AssistantVersionReceived += EventSink_ClientVersionReceived;
         }
 
         private static string GetVersionExpression()
@@ -168,6 +170,11 @@ namespace Server.Misc
                         }
                 }
             }
+        }
+
+        private static void EventSink_ClientVersionReceived(NetState state, string version)
+        {
+            state.AssistantVersion = string.IsNullOrEmpty(version) ? string.Empty : version;
         }
 
         private static void OnKick(NetState ns)
